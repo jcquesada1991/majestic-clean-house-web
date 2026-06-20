@@ -157,7 +157,7 @@ tailwind.config = { theme: { extend: {
 <!-- HEADER -->
 <header id="top" class="fixed top-0 inset-x-0 z-50 bg-white/90 backdrop-blur border-b border-[#E4ECF5]">
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 h-[68px] flex items-center justify-between gap-4">
-    <a href="../index.html#top" class="flex items-center gap-2.5 shrink-0">
+    <a href="../index.html" onclick="return logoHome(this)" aria-label="Majestic Clean House, back to home top" class="flex items-center gap-2.5 shrink-0">
       <img src="../img/logo-badge-96.png" alt="Majestic Clean House LLC logo" width="40" height="40" class="h-10 w-auto" />
       <span class="leading-none">
         <span class="block font-display font-700 text-navy text-[.95rem] sm:text-[1.05rem] tracking-tight whitespace-nowrap">Majestic Clean House</span>
@@ -311,6 +311,7 @@ tailwind.config = { theme: { extend: {
   (function(){ var saved='en'; try{ saved=localStorage.getItem('mch_lang')||'en'; }catch(e){} setLang(saved); })();
   var io = new IntersectionObserver(function(entries){ entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold:0.12 });
   document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
+  function logoHome(a){ try{ var cur=location.pathname.replace(/index\.html$/,''); var dst=a.pathname.replace(/index\.html$/,''); if(cur===dst){ closeMenu(); window.scrollTo({top:0,behavior:'smooth'}); if(history.replaceState) history.replaceState(null,'',cur||'./'); return false; } }catch(e){} return true; }
   function toggleMenu(){ var m=document.getElementById('mobileMenu'), b=document.getElementById('menuBtn'); if(!m) return; var open=m.classList.toggle('hidden')===false; if(b) b.setAttribute('aria-expanded', open?'true':'false'); }
   function closeMenu(){ var m=document.getElementById('mobileMenu'), b=document.getElementById('menuBtn'); if(m) m.classList.add('hidden'); if(b) b.setAttribute('aria-expanded','false'); }
   var toTop=document.getElementById('toTop');
