@@ -283,15 +283,15 @@ tailwind.config = { theme: { extend: {
 </header>
 
 <section class="relative pt-[68px]">
-  <div class="relative">
+  <div class="relative min-h-[clamp(540px,74vh,720px)] flex items-center overflow-hidden">
     <picture>
       <source type="image/webp" srcset="img/hero-living-room-1600.webp 1600w, img/hero-living-room-900.webp 900w" sizes="100vw" />
-      <img src="img/hero-living-room-1600.jpg" alt="Bright, spotless living room cleaned by Majestic Clean House in Newport News, VA" class="w-full h-[68vh] min-h-[440px] max-h-[680px] object-cover" width="1600" height="900" fetchpriority="high" />
+      <img src="img/hero-living-room-1600.jpg" alt="Bright, spotless living room cleaned by Majestic Clean House in Newport News, VA" class="absolute inset-0 w-full h-full object-cover" width="1600" height="900" fetchpriority="high" />
     </picture>
     <div class="absolute inset-0 bg-gradient-to-r from-navy/95 via-navy/78 to-navy/35 sm:to-navy/20"></div>
     <div class="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent sm:from-navy/25"></div>
-    <div class="absolute inset-0 flex items-center">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full">
+    <div class="relative w-full">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full py-20 sm:py-24">
         <div class="max-w-2xl text-white">
           <p class="mb-5 rv in"><span class="eyebrow inline-flex items-center gap-2 bg-navy/60 backdrop-blur-sm border border-gold/40 rounded-full pl-3 pr-3.5 py-1.5 text-gold"><span class="w-1.5 h-1.5 rounded-full bg-gold"></span><span data-en>Locally Owned · Newport News, VA</span><span data-es>Negocio Local · Newport News, VA</span></span></p>
           <h1 class="font-display font-600 leading-[1.05] text-[clamp(2.3rem,5.4vw,4rem)] rv in d1" style="text-shadow:0 2px 24px rgba(7,18,40,.55)"><span data-en>House Cleaning Services Near You in Newport News &amp; Hampton Roads</span><span data-es>Servicio de Limpieza Cerca de Ti en Newport News y Hampton Roads</span></h1>
