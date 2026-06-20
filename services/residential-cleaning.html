@@ -304,9 +304,11 @@ tailwind.config = { theme: { extend: {
   document.getElementById('year').textContent = new Date().getFullYear();
   var WA_NUMBER = '17575806290';
   var WA_MSG = { en: "Hi! I was looking at your website and I'm interested in one of your cleaning services. When could we talk?", es: "¡Hola! Estuve revisando su página web y me interesa uno de sus servicios de limpieza. ¿Cuándo podríamos hablar?" };
-  function applyWa() { var lang = document.body.classList.contains('lang-es') ? 'es':'en'; var href='https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(WA_MSG[lang]); document.querySelectorAll('.wa-cta').forEach(function(a){ a.setAttribute('href', href); }); }
+  // Phone CTAs CALL the number (tel:) on all devices. WhatsApp not used for the number
+  // because it's unconfirmed the line has WhatsApp (wa.me errors for non-WhatsApp numbers).
+  // Raw href is already tel:+1..., so no rewrite needed.
   function applyOptionLabels() { var lang = document.body.classList.contains('lang-es')?'es':'en'; document.querySelectorAll('#f-service option').forEach(function(o){ o.textContent=o.getAttribute('data-'+lang+'-opt')||o.textContent; }); }
-  function setLang(lang) { document.body.classList.remove('lang-en','lang-es'); document.body.classList.add('lang-'+lang); document.documentElement.lang=lang; try{localStorage.setItem('mch_lang',lang);}catch(e){} applyOptionLabels(); applyWa(); }
+  function setLang(lang) { document.body.classList.remove('lang-en','lang-es'); document.body.classList.add('lang-'+lang); document.documentElement.lang=lang; try{localStorage.setItem('mch_lang',lang);}catch(e){} applyOptionLabels(); }
   function toggleLang() { setLang(document.body.classList.contains('lang-es')?'en':'es'); }
   (function(){ var saved='en'; try{ saved=localStorage.getItem('mch_lang')||'en'; }catch(e){} setLang(saved); })();
   var io = new IntersectionObserver(function(entries){ entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold:0.12 });
