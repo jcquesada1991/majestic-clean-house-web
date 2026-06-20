@@ -263,8 +263,8 @@ tailwind.config = { theme: { extend: {
             <div><label class="block text-sm font-600 text-steel mb-1.5" for="f-service"><span data-en>Service Needed</span><span data-es>Servicio que Necesitas</span></label>
               <select id="f-service" name="service" class="w-full rounded-xl border border-[#D6E1EE] px-4 py-3 focus:border-sky focus:ring-2 focus:ring-sky/20 outline-none transition bg-white"><option data-en-opt="Residential Cleaning Near You" data-es-opt="Limpieza Residencial Cerca de Ti">Residential Cleaning Near You</option><option data-en-opt="Commercial & Office Cleaning" data-es-opt="Limpieza Comercial y de Oficinas">Commercial & Office Cleaning</option><option data-en-opt="Deep Cleaning Services" data-es-opt="Limpieza Profunda">Deep Cleaning Services</option><option data-en-opt="Move-In / Move-Out Cleaning" data-es-opt="Limpieza de Mudanza (Entrada / Salida)">Move-In / Move-Out Cleaning</option><option data-en-opt="Post-Construction Cleaning" data-es-opt="Limpieza Post-Construcción">Post-Construction Cleaning</option><option data-en-opt="Window Cleaning" data-es-opt="Limpieza de Ventanas">Window Cleaning</option><option data-en-opt="Airbnb & Short-Term Rental Cleaning" data-es-opt="Limpieza de Airbnb y Alquiler de Corto Plazo">Airbnb & Short-Term Rental Cleaning</option><option data-en-opt="Other" data-es-opt="Otro">Other</option></select></div>
             <div><label class="block text-sm font-600 text-steel mb-1.5" for="f-msg"><span data-en>Anything else? (optional)</span><span data-es>¿Algo más? (opcional)</span></label><textarea id="f-msg" name="message" rows="3" class="w-full rounded-xl border border-[#D6E1EE] px-4 py-3 focus:border-sky focus:ring-2 focus:ring-sky/20 outline-none transition"></textarea></div>
-            <button type="submit" class="btn-gold w-full font-700 rounded-xl px-6 py-3.5 text-lg shadow-md"><span data-en>Send My Request</span><span data-es>Enviar Mi Solicitud</span></button>
-            <p class="text-center text-xs text-steel"><span data-en>Opens WhatsApp with your request ready to send, or just call us.</span><span data-es>Abre WhatsApp con tu solicitud lista para enviar, o simplemente llámanos.</span></p>
+            <button type="submit" class="btn-gold w-full inline-flex items-center justify-center gap-2 font-700 rounded-xl px-6 py-3.5 text-lg shadow-md"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg> <span data-en>Call to Get My Quote</span><span data-es>Llamar para mi Cotización</span></button>
+            <p class="text-center text-xs text-steel"><span data-en>Have your details ready, tapping the button calls us so we can take your request by phone.</span><span data-es>Ten tus datos a mano: al tocar el botón nos llamas y tomamos tu solicitud por teléfono.</span></p>
           </div>
         </form>
       </div>
@@ -302,11 +302,8 @@ tailwind.config = { theme: { extend: {
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
-  var WA_NUMBER = '17575806290';
-  var WA_MSG = { en: "Hi! I was looking at your website and I'm interested in one of your cleaning services. When could we talk?", es: "¡Hola! Estuve revisando su página web y me interesa uno de sus servicios de limpieza. ¿Cuándo podríamos hablar?" };
-  // Phone CTAs CALL the number (tel:) on all devices. WhatsApp not used for the number
-  // because it's unconfirmed the line has WhatsApp (wa.me errors for non-WhatsApp numbers).
-  // Raw href is already tel:+1..., so no rewrite needed.
+  // Phone CTAs CALL the number (tel:) on all devices. WhatsApp intentionally not used
+  // (unconfirmed the line has WhatsApp). Raw href is already tel:+1..., so no rewrite needed.
   function applyOptionLabels() { var lang = document.body.classList.contains('lang-es')?'es':'en'; document.querySelectorAll('#f-service option').forEach(function(o){ o.textContent=o.getAttribute('data-'+lang+'-opt')||o.textContent; }); }
   function setLang(lang) { document.body.classList.remove('lang-en','lang-es'); document.body.classList.add('lang-'+lang); document.documentElement.lang=lang; try{localStorage.setItem('mch_lang',lang);}catch(e){} applyOptionLabels(); }
   function toggleLang() { setLang(document.body.classList.contains('lang-es')?'en':'es'); }
@@ -318,13 +315,9 @@ tailwind.config = { theme: { extend: {
   function closeMenu(){ var m=document.getElementById('mobileMenu'), b=document.getElementById('menuBtn'); if(m) m.classList.add('hidden'); if(b) b.setAttribute('aria-expanded','false'); }
   var toTop=document.getElementById('toTop');
   if(toTop){ var onScroll=function(){ if(window.scrollY>400){ toTop.classList.add('show'); } else { toTop.classList.remove('show'); } }; window.addEventListener('scroll', onScroll, {passive:true}); onScroll(); }
+  // Form is phone-first for now: submitting places a call to the business (no WhatsApp / no backend yet)
   var qf=document.getElementById('quoteForm');
-  if(qf){ qf.addEventListener('submit', function(e){ e.preventDefault();
-    var lang=document.body.classList.contains('lang-es')?'es':'en';
-    var name=document.getElementById('f-name').value.trim(), phone=document.getElementById('f-phone').value.trim(), service=document.getElementById('f-service').value, msg=document.getElementById('f-msg').value.trim();
-    var text=(lang==='es')?("¡Hola! Quiero una cotización gratis (vengo de su página web).\n\nNombre: "+name+"\nTeléfono: "+phone+"\nServicio: "+service+(msg?("\nMensaje: "+msg):"")):("Hi! I'd like a free estimate (I'm coming from your website).\n\nName: "+name+"\nPhone: "+phone+"\nService: "+service+(msg?("\nMessage: "+msg):""));
-    window.open('https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(text), '_blank');
-  }); }
+  if(qf){ qf.addEventListener('submit', function(e){ e.preventDefault(); window.location.href='tel:+17575806290'; }); }
 </script>
 </body>
 </html>
